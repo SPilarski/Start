@@ -57,7 +57,17 @@
     $('.robieTo ul > li li').css({"list-style":"none"});
     $('.robieTo> li').css({"list-style":"none"});
 //Zad 3
-$('.robieTo li').css({"float":"left"});
+$('#listaRoslin > li').addClass("horizontal-list");
+//Zad 4
+$("#rosliny li ul li:last-child").css({"color": "blue"})
+//Zad 5
+$("#listaRoslin ul:not(:has(ul)) li").each((index, el) =>{
+    $(el).append(`<a href=https://us.edu.pl/${index}> Link 1</a>`);
+});
+$("#listaRoslin ul ul li, #listaRoslin ul:last li").each(function(index){
+    $(this).append(`<a href=https://us.edu.pl/${index}> Link 3</a>`);
+});
+
 
     });
 </script>
