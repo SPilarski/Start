@@ -1,0 +1,64 @@
+{{> header.html}}
+
+<div class="container">
+    <div id="text">
+        <p>Akapit 1</p>
+        <p>Akapit 2</p>
+        <p>Akapit 3</p>
+        <p>Akapit 4</p>
+        <p>Akapit 5</p>
+    </div>
+</div>
+     <ul id="listaRoslin">
+         <li>Rośliny [1 poziom]
+             <ul id="rosliny">
+                 <li>Rośliny drzewiaste
+                     <ul>
+                         <li>drzewa [3 poziom]</li>
+                         <li>krzewy [3 poziom]</li>
+                         <li>krzewinki [3 poziom]</li>
+                     </ul>
+                 </li>
+                 <li>Rośliny zielne
+                     <ul>
+                         <li>rośliny jednoroczne [3 poziom]</li>
+                         <li>rośliny dwuletnie [3 poziom]</li>
+                         <li>byliny [3 poziom]</li>
+                     </ul>
+                 </li>
+             </ul>
+         </li>
+         <li>Zwierzęta [1 poziom]
+             <ul id="zwierzeta">
+                 <li>ryby</li>
+                 <li>ptaki</li>
+                 <li>gady</li>
+                 <li>płazy</li>
+                 <li>owady</li>
+                 <li>ssaki</li>
+             </ul>
+         </li>
+     </ul>   	 
+
+{{> footer.html}}
+
+<script>
+    $( document ).ready(function() {	
+        // TODO:
+        $("#text p").addClass('boldGray');
+//Zad 1 
+        $('.boldGray').css({"font-weight":"bold", "color": "red"});
+        $("#text p:eq(1)").text('Zmieniony tekst');
+        $('#text p:eq(1)').css({"color": "blue"});
+        $("#text p:eq(4)").text('Zmieniony tekst');
+        $('#text p:eq(4)').css({"color": "blue"});
+//Zad 2
+    $("#listaRoslin").addClass('robieTo');
+    $('.robieTo ul > li li').css({"list-style":"none"});
+    $('.robieTo> li').css({"list-style":"none"});
+//Zad 3
+$('.robieTo li').css({"float":"left"});
+
+    });
+</script>
+    
