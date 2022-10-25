@@ -1,0 +1,141 @@
+{{> header.html}}
+
+<div class="h-100 d-flex align-items-center justify-content-center">
+    <div class="container">
+  
+        <div class="alert alert-danger" id="msg_null" role="alert" style="display:none;"><strong>Błąd!</strong> Nie wypełniono wszystkich pól.</div>
+        <div class="alert alert-danger" id="msg_letters" role="alert" style="display:none;"><strong>Błąd!</strong> Nie podano samych liter w Imieniu i Nazwisku!</div>
+        <div class="alert alert-danger" id="msg_phone" role="alert" style="display:none;"><strong>Błąd!</strong> Podano niepoprawny numer telefonu.</div>
+        <div class="alert alert-danger" id="msg_email" role="alert" style="display:none;"><strong>Błąd!</strong> Podano niepoprawny adres email.</div>
+        <div class="alert alert-danger" id="msg_age" role="alert" style="display:none;"><strong>Błąd!</strong> Podano niepoprawny wiek.</div>
+        <div class="alert alert-success" id="msg_ok" role="alert" style="display:none;"><strong>Wow!</strong> Twoje konto zostało utworzone.</div>
+        <div class="alert alert-info" id="msg_18_yes" role="alert" style="display:none;"><strong>Super!</strong> Jesteś użytkownikiem pełnoletnim.</div>
+        <div class="alert alert-danger" id="msg_18_no" role="alert" style="display:none;"><strong>Niestety!</strong> Nie jesteś użytkownikiem pełnoletnim.</div>
+        
+        <form id="form">
+          <div class="row mb-4">
+            <div class="col">
+              <div class="form-outline">
+                <input type="text" class="form-control" id="name" />
+                <label class="form-label" for="name">Imię</label>
+
+                <input type="text" class="form-control" id="lastname" />
+                <label class="form-label" for="lastname">Nazwisko</label>
+              </div>
+            </div>
+            
+          </div>
+        
+          <div class="form-outline mb-4">
+            <input type="text" class="form-control" id="city" />
+            <label class="form-label" for="city">Miasto</label>
+          </div>
+
+
+          <div class="form-outline mb-4">
+            <input type="text" class="form-control" id="phone" />
+            <label class="form-label" for="phone">Numer telefonu</label>
+          </div>
+
+          <div class="form-outline mb-4">
+            <input type="text" class="form-control" id="email" />
+            <label class="form-label" for="email">E-mail</label>
+          </div>
+
+          <div class="form-outline mb-4">
+            <input type="number" class="form-control" id="year" />
+            <label class="form-label" for="year">Rok Urodzenia</label>
+          </div>
+          
+        
+          <button type="submit" class="btn btn-primary btn-block mb-4">Wyślij</button>
+        </form>
+    </div>    
+</div>
+<script>	
+
+function year(year) {
+  return !Number.isNaN(year) 
+}
+
+function isLettersOnly(string) {
+  return String(string)
+    .match(/^[A-Za-z]+$/)
+}
+function isEmail(email) {
+  return String(email)
+    .match(/^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)
+}
+
+function isPhone(phone) {
+  return String(phone)
+    .match(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/)
+}
+$( document ).ready(function() {
+  
+  const $form = $('#form')
+  const $inputs = $('input')
+  const $alerts = $('.alert')
+
+
+  
+
+  const $data = {}
+  $inputs.each(function (index, elem) {
+    $data[elem.id] = $(elem)
+  })
+
+  function anyIsEmpty($inputs) {
+    return Array.from($inputs).find(input => input.value === '') === undefined
+    ? false
+    : true
+  } 
+
+  function isOver18(year) {
+    return new Date().getFullYear() - year > 18
+  }
+
+
+  
+	$form.submit(function(event) {
+    event.preventDefault()
+
+    if (anyIsEmpty($inputs)) {
+      $('#msg_null').show();
+      return
+    }
+    if (!isLettersOnly($('#name').val())) {
+      $('#msg_letters').show();
+      return
+    }
+    if (!isLettersOnly($('#lastname').val())) {
+      $('#msg_letters').show();
+      return
+    }
+    if (!isPhone($('#phone').val())) {
+      $('#msg_phone').show();
+      return
+    }
+    if (!isEmail($('#email').val())) {
+      $('#msg_email').show();
+      return
+    }
+    if (!year($('#year').val())) {
+      $('#msg_age').show();
+      return
+    }
+    if (isOver18($('#year').val())) {
+      $('#msg_18_yes').show();
+    } else {
+      $('#msg_18_no').show();
+    }
+    
+    $('#msg_ok').show();
+
+    
+    
+	});
+});
+</script>
+
+{{> footer.html}}
