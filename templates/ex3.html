@@ -1,0 +1,276 @@
+{{> header.html}}
+
+<div class="h-100 d-flex align-items-center justify-content-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10">
+        <h1>Tytuł artykułu</h1>
+        <hr />
+        <p>
+          <span class="bi-alarm" style="font-size: 1.5rem">
+            01 stycznia 2022 / 12:23</span
+          >
+        </p>		
+        <hr />
+        <img
+          class="img-responsive"
+          src="https://via.placeholder.com/900x300"
+          alt=""
+        />
+        <hr />
+        <p class="lead">
+          Loerm Ipsum
+          Loerm Ipsum
+          Loerm Ipsum
+        </p>
+        <p>
+          Loerm Ipsum
+          Loerm Ipsum
+          Loerm Ipsum
+        </p>
+        <p>
+          Loerm Ipsum
+          Loerm Ipsum
+          Loerm Ipsum
+        </p>
+        <p>
+          Loerm Ipsum
+          Loerm Ipsum
+          Loerm Ipsum
+        </p>
+        <p>
+          Loerm Ipsum
+          Loerm Ipsum
+          Loerm Ipsum
+        </p>
+        <hr />
+        <div>
+          <h4>Dodaj komentarz:</h4>
+          <form class="row g-3 needs-validation" id="form" novalidate>
+            <div class="col-md-12">
+              <label for="username" class="form-label">Użytkownik</label>
+              <input type="text" class="form-control" id="username" required />
+              <div class="valid-feedback">OK!</div>
+            </div>
+            <div class="row-md-12">
+              <label for="msg" class="form-label">Komentarz</label>
+              <textarea
+                class="form-control"
+                id="msg"
+                rows="3"
+                required
+              ></textarea>
+              <div class="valid-feedback">OK!</div>
+            </div>
+
+            <div class="col-12">
+              <button class="btn btn-primary" type="submit">Wyślij</button>
+            </div>
+          </form>
+        </div>
+        <hr />
+
+        <div id="comm" class="row gy-3">
+          <div class="media">
+            <div class="container">
+              <div class="row">
+                <div
+                  class="col-2 d-flex align-items-center justify-content-center"
+                >
+                  <button class="btn btn-danger">Usuń</button>
+                </div>
+                <div class="col-10"><b>User_1</b> | 22 Września 2021</div>
+              </div>
+              <div class="row">
+                <div
+                  class="col-2 d-flex align-items-center justify-content-center gy-2"
+                >
+                  <img src="https://via.placeholder.com/64" alt="" />
+                </div>
+                <div class="col-10">
+                  Pierwszy komantarz
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="media">
+            <div class="container">
+              <div class="row">
+                <div
+                  class="col-2 d-flex align-items-center justify-content-center"
+                >
+                  <button class="btn btn-danger">Usuń</button>
+                </div>
+                <div class="col-10"><b>User_2</b> | 23 Września 2021</div>
+              </div>
+              <div class="row">
+                <div
+                  class="col-2 d-flex align-items-top justify-content-center gy-2"
+                >
+                  <img src="https://via.placeholder.com/64" alt="" />
+                </div>
+                <div class="col-10">
+                  Drugi komentarz
+                </div>
+              </div>
+            </div>
+          </div>
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    "use strict";
+    var forms = document.querySelectorAll(".needs-validation");
+
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener(
+        "submit",
+        function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add("was-validated");
+
+          event.preventDefault();
+        },
+        false
+      );
+    });
+  })();
+</script>
+<script>
+  jQuery.extend({
+    convertDate: function (mysqlDate) {
+      var stringParts = mysqlDate.split("-");
+      var output = "";
+      $.each(stringParts, function (key, line) {
+        var month = [
+          "stycznia",
+          "lutego",
+          "marca",
+          "kwietnia",
+          "maja",
+          "czerwca",
+          "lipca",
+          "sierpnia",
+          "września",
+          "października",
+          "listopada",
+          "grudnia",
+        ];
+        if (stringParts[2].length > 1 && stringParts[2].charAt(0) == 0) {
+          if (stringParts[2] < 10) {
+            output =
+              stringParts[2] +
+              " " +
+              month[stringParts[1]] +
+              " " +
+              stringParts[0];
+          } else {
+            output =
+              stringParts[2] +
+              " " +
+              month[stringParts[1]] +
+              " " +
+              stringParts[0];
+          }
+        } else if (stringParts[2] < 10) {
+          var day = "0" + stringParts[2];
+          output = day + " " + month[stringParts[1]] + " " + stringParts[0];
+        } else {
+          var day = stringParts[2];
+          output = day + " " + month[stringParts[1]] + " " + stringParts[0];
+        }
+      });
+      return output;
+    },
+  });
+</script>
+
+<script>
+  function isEmail(email) {
+    var regex = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+    return regex.test(email);
+  }
+  function isPhone(phone) {
+    var regex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{3})/;
+    return regex.test(phone);
+  }
+  function addButtonAction() {
+    $(".btn-danger").each((index, el) => {
+      $(el).on("click", function () {
+        $(el.closest("div.media")).fadeOut("slow");
+        // setTimeout(function () {
+        //   $(el.closest("div.media")).fadeOut("slow");
+        // }, 100);
+      });
+    });
+  }
+
+  $(document).ready(function () {
+    var d = new Date();
+    var day = d.getDate();
+    var month = d.getMonth();
+    var year = d.getFullYear();
+    var hours = d.getHours();
+    var minutes = d.getMinutes();
+    var seconds = d.getSeconds();
+
+    addButtonAction();
+    $(".alert").hide();
+
+    $("#form").submit(function (event) {
+      event.preventDefault();
+
+      let username = $("#username").val();
+      let comment = $("#msg").val();
+      let data = new Intl.DateTimeFormat("pl-PL", {
+        dateStyle: "long",
+      }).format(new Date());
+
+      let newComment = `
+      <div class="media">
+            <div class="container">
+              <div class="row">
+                <div
+                  class="col-2 d-flex align-items-center justify-content-center"
+                >
+                  <button class="btn btn-danger">Usuń</button>
+                </div>
+                <div class="col-10"><b>${username}</b> | ${data}</div>
+              </div>
+              <div class="row">
+                <div
+                  class="col-2 d-flex align-items-top justify-content-center gy-2"
+                >
+                  <img src="https://via.placeholder.com/64" alt="" />
+                </div>
+                <div class="col-10">
+                  ${comment}
+                </div>
+              </div>
+            </div>
+          </div>
+
+      `;
+
+      let element = $("#comm");
+      element.prepend(newComment);
+
+      element = $("div.media");
+      $(element.first()).hide();
+      $(element.first()).fadeIn("slow");
+      addButtonAction();
+    });
+  });
+</script>
+
+{{> footer.html}}
